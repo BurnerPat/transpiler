@@ -1,11 +1,16 @@
-import {INumeric} from "./_numeric";
+import {INumeric, NumericBase} from "./_numeric";
 
-export class Packed implements INumeric {
+export class Packed extends NumericBase {
   private value: number;
+
+  // @ts-ignore
   private readonly length: number;
+  // @ts-ignore
   private readonly decimals: number;
 
-  public constructor(input?: {length?: number, decimals?: number}) {
+  public constructor(input?: { length?: number, decimals?: number }) {
+    super();
+
     this.value = 0;
 
     this.length = 666;
@@ -27,18 +32,15 @@ export class Packed implements INumeric {
     }
   }
 
-  public add(_value: INumeric) {
-// todo
-//    return new Packed({value: value.value + this.value});
-    console.log(this.length);
-    console.log(this.decimals);
-  }
-
   public clear(): void {
     this.value = 0;
   }
 
   public get(): number {
     return this.value;
+  }
+
+  protected new(): this {
+    return new Packed() as this;
   }
 }

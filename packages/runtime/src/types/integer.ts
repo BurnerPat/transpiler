@@ -1,9 +1,11 @@
-import {INumeric} from "./_numeric";
+import {INumeric, NumericBase} from "./_numeric";
 
-export class Integer implements INumeric {
+export class Integer extends NumericBase {
   private value: number;
 
   public constructor() {
+    super();
+
     this.value = 0;
   }
 
@@ -16,15 +18,15 @@ export class Integer implements INumeric {
     return this;
   }
 
-  public add(value: Integer) {
-    return new Integer().set(value.value + this.value);
-  }
-
   public clear(): void {
     this.value = 0;
   }
 
   public get(): number {
     return this.value;
+  }
+
+  protected new(): this {
+    return new Integer() as this;
   }
 }
