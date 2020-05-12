@@ -1,4 +1,5 @@
 import {MemoryFile, Registry, ABAPObject, SyntaxLogic, IRegistry} from "@abaplint/core";
+import Rearranger from "./rearranger";
 import {Validation, config} from "./validation";
 import {Indentation} from "./indentation";
 import {Traversal} from "./traversal";
@@ -53,7 +54,7 @@ export class Transpiler {
     const spaghetti = new SyntaxLogic(reg, obj).run().spaghetti;
 
     for (const f of obj.getABAPFiles()) {
-      let contents = new Traversal(spaghetti, f.getFilename(), obj).traverse(f.getStructure());
+      let contents = new Traversal(spaghetti, f.getFilename(), obj).traverse(new Rearranger().run(f.getStructure()));
 
       if (contents.endsWith("\n")) {
         contents = contents.substring(0, contents.length - 1);
